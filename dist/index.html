@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>SecurePass · Менеджер паролей</title><link rel="icon" href="data:,"><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script></head>
+<body>
+<header>
+  <div class="brand">SecurePass</div>
+  <button id="lock" hidden>Заблокировать</button>
+</header>
+<main id="gate" class="gate">
+  <form id="accessForm">
+    <h1 id="accessTitle">Создание хранилища</h1>
+    <p id="accessHelp"></p>
+    <label>Мастер-пароль<input id="master" type="password" required maxlength="1024" autocomplete="new-password"></label>
+    <label id="confirmLabel">Повторите мастер-пароль<input id="confirmMaster" type="password" maxlength="1024" autocomplete="new-password"></label>
+    <div class="error" role="alert" id="accessError"></div>
+    <button class="primary" id="accessSubmit">Создать хранилище</button>
+  </form>
+</main>
+<main id="workspace" class="workspace" hidden>
+<aside><h2 class="side-title">Категории</h2><nav id="nav" aria-label="Категории записей"></nav><div class="tools"><button id="importOpen">Импорт JSON</button><button id="export">Экспорт JSON</button></div></aside>
+<section class="collection"><div class="list-head"><h1 id="listTitle">Все записи</h1><button id="add" class="primary">Добавить запись</button></div><label class="search"><input type="search" id="search" placeholder="Поиск по названию, логину или тегу" aria-label="Поиск по названию, логину или тегу"></label><div id="resultCount" class="small"></div><div id="rows" class="rows"></div></section>
+<section id="detail" class="detail" aria-label="Выбранная запись"></section></main>
+<dialog id="editor"><form id="entryForm"><div class="modal-top"><h2 id="editorTitle">Новая запись</h2><button type="button" class="close" data-close aria-label="Закрыть">×</button></div>
+<div class="columns"><label>Название<input name="title" required maxlength="120" placeholder="Например, учебная почта"></label><label>Категория<select name="category"></select></label></div>
+<label>Логин<input name="login" required maxlength="254" autocomplete="off" spellcheck="false" placeholder="Логин или электронная почта"></label>
+<label>Пароль<span class="inline"><input name="password" type="password" required maxlength="1024" autocomplete="new-password"><button type="button" id="editReveal">Показать</button></span></label>
+<details id="gen"><summary>Генератор паролей</summary><div class="gen-body"><label class="range">Длина <input id="length" type="range" min="8" max="64" value="20"><output id="lengthText" for="length">20</output></label><div class="checks"><label><input type="checkbox" value="lower" checked> a–z</label><label><input type="checkbox" value="upper" checked> A–Z</label><label><input type="checkbox" value="digits" checked> 0–9</label><label><input type="checkbox" value="symbols" checked> !@#</label></div><button type="button" id="generate">Сгенерировать пароль</button><div class="error" role="alert" id="genError"></div></div></details>
+<label>Теги <span class="hint">через запятую</span><input name="tags" maxlength="250" placeholder="учёба, личное"></label><label>Заметки<textarea name="notes" maxlength="3000" rows="2"></textarea></label>
+<div class="error" role="alert" id="editorError"></div><footer><button type="button" data-close>Отмена</button><button class="primary" id="save">Сохранить</button></footer></form></dialog>
+<dialog id="importDialog"><form id="importForm"><div class="modal-top"><h2>Импорт хранилища</h2><button type="button" class="close" data-close aria-label="Закрыть">×</button></div><p>Выберите зашифрованную копию SecurePass. Новые записи добавятся к вашим. Если запись уже есть, сохранится её местная версия.</p><label>Файл JSON<input type="file" id="file" accept=".json,application/json" required></label><label>Мастер-пароль этой копии<input type="password" id="filePass" autocomplete="off" required maxlength="1024"></label><div class="error" role="alert" id="importError"></div><footer><button type="button" data-close>Отмена</button><button class="primary" id="importSubmit">Импортировать</button></footer></form></dialog>
+<dialog id="deleteDialog"><form id="deleteForm"><h2>Удалить запись?</h2><p id="deleteHint"></p><div class="error" role="alert" id="deleteError"></div><footer><button type="button" data-close autofocus>Отмена</button><button class="danger" id="deleteSubmit">Удалить</button></footer></form></dialog>
+<div id="notice" role="status" aria-live="polite"></div>
+</body></html>
